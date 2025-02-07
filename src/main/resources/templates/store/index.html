@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index - Bienvenue</title>
+</head>
+<body>
+    <h1>Bienvenue, <span th:text="${client.prenom}">Nom</span>!</h1>
+    <p>Vous êtes maintenant connecté(e) !</p>
+    <a th:href="@{/store/logout}">Déconnexion</a>
+</body>
+</html>

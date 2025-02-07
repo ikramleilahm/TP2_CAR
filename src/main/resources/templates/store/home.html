@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home - Sign In / Sign Up</title>
+</head>
+<body>
+    <h1>Bienvenue, choisissez une option :</h1>
+    
+    <!-- Affichage des messages d'erreur ou de succès -->
+    <div th:if="${error != null}" th:text="${error}" style="color: red;"></div>
+    <div th:if="${message != null}" th:text="${message}" style="color: green;"></div>
+
+    <!-- Formulaire d'inscription -->
+    <h2>S'inscrire</h2>
+    <form th:action="@{/store/register}" method="POST">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" required>
+        </div>
+        <div>
+            <label for="firstName">Prénom</label>
+            <input type="text" name="prenom" required>
+        </div>
+        <div>
+            <label for="lastName">Nom</label>
+            <input type="text" name="nom" required>
+        </div>
+        <button type="submit">S'inscrire</button>
+    </form>
+    
+    <hr>
+
+    <!-- Formulaire de connexion -->
+    <h2>Se connecter</h2>
+    <form th:action="@{/store/login}" method="POST">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" required>
+        </div>
+        <button type="submit">Se connecter</button>
+    </form>
+</body>
+</html>
