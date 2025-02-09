@@ -16,6 +16,7 @@ public class ClientController {
 
     @GetMapping("/home")
     public ModelAndView homePage() {
+
         return new ModelAndView("/store/home");
     }
 
@@ -25,24 +26,21 @@ public class ClientController {
         ModelAndView modelAndView = new ModelAndView("/store/home");
 
         if (registeredClient != null) {
-            // Inscription réussie
             modelAndView.addObject("message", "Inscription réussie !");
         } else {
-            // Email déjà existant
             modelAndView.addObject("error", "Un client avec cet email existe déjà !");
         }
 
-        return modelAndView;  // Retourne la page d'accueil après inscription
+        return modelAndView;
     }
 
     // Gérer la connexion
-    @PostMapping("/store/login")
+    @PostMapping("/login")
     public ModelAndView loginClient(String email, String password) {
         Client client = clientService.authenticateClient(email, password);
         ModelAndView modelAndView = new ModelAndView();
 
         if (client != null) {
-            // Connexion réussie, redirection vers la page index
             modelAndView.setViewName("store/index");
             modelAndView.addObject("client", client);  // Ajouter le client à la vue
         } else {
@@ -51,12 +49,13 @@ public class ClientController {
             modelAndView.addObject("error", "Identifiants incorrects !");
         }
 
-        return modelAndView;  // Redirection vers index ou retour à home en cas d'erreur
+        return modelAndView;
     }
 
     // Page après connexion
     @GetMapping("/store/index")
     public ModelAndView indexPage() {
+
         return new ModelAndView("store/index");
     }
 

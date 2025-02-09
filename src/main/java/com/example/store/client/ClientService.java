@@ -9,7 +9,6 @@ public class ClientService implements ClientItf {
     @Autowired
     private ClientRepository repo;
 
-    // Inscription d'un client
     @Override
     public Client registerClient(Client client) {
         // Vérifie si un client avec cet email existe déjà
