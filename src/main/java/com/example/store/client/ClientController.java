@@ -1,11 +1,15 @@
 package com.example.store.client;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/store")
@@ -16,53 +20,49 @@ public class ClientController {
 
     @GetMapping("/home")
     public ModelAndView homePage() {
-
         return new ModelAndView("/store/home");
     }
 
     @PostMapping("/register")
-    public ModelAndView registerClient(Client client) {
-        Client registeredClient = clientService.registerClient(client);
-        ModelAndView modelAndView = new ModelAndView("/store/home");
-
-        if (registeredClient != null) {
-            modelAndView.addObject("message", "Inscription réussie !");
-        } else {
-            modelAndView.addObject("error", "Un client avec cet email existe déjà !");
-        }
-
+    public ModelAndView register(@RequestParam String email, @RequestParam String password,
+                                 @RequestParam String nom, @RequestParam String prenom) {
+        clientService.register(email, password, nom, prenom);
+        ModelAndView modelAndView = new ModelAndView("store/home");
+        modelAndView.addObject("email", email);
+        modelAndView.addObject("password", password);
+        modelAndView.addObject("message","Inscription réussie !");
         return modelAndView;
     }
 
-    // Gérer la connexion
     @PostMapping("/login")
-    public ModelAndView loginClient(String email, String password) {
-        Client client = clientService.authenticateClient(email, password);
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView login(@RequestParam String email, @RequestParam String password,
+                              HttpSession session) {
+        Optional<Client> client = clientService.login(email, password);
+        ModelAndView modelAndView = new ModelAndView("store/home");
 
-        if (client != null) {
-            modelAndView.setViewName("store/index");
-            modelAndView.addObject("client", client);  // Ajouter le client à la vue
+        if (client.isPresent()) {
+            session.setAttribute("client", client.get());
+            modelAndView.addObject("client", client.get());
+            return new ModelAndView("redirect:/store/index");
         } else {
-            // Connexion échouée
-            modelAndView.setViewName("store/home");
-            modelAndView.addObject("error", "Identifiants incorrects !");
+            modelAndView.addObject("error", "email ou mot de passe incorrect");
+            return modelAndView;
         }
+    }
 
+    @GetMapping("/index")
+    public ModelAndView indexPage(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView("store/index");
+        Client client = (Client) session.getAttribute("client");
+        if (client != null) {
+            modelAndView.addObject("client", client);
+        }
         return modelAndView;
     }
 
-    // Page après connexion
-    @GetMapping("/store/index")
-    public ModelAndView indexPage() {
-
-        return new ModelAndView("store/index");
-    }
-
-    // Déconnexion
-    @GetMapping("/store/logout")
-    public ModelAndView logout() {
-        // Redirige vers la page d'accueil après déconnexion
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpSession session) {
+        session.invalidate();
         return new ModelAndView("redirect:/store/home");
     }
 }
