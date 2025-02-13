@@ -50,15 +50,6 @@ public class ClientController {
         }
     }
 
-    @GetMapping("/index")
-    public ModelAndView indexPage(HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView("store/index");
-        Client client = (Client) session.getAttribute("client");
-        if (client != null) {
-            modelAndView.addObject("client", client);
-        }
-        return modelAndView;
-    }
 
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession session) {
