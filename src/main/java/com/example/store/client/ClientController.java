@@ -36,18 +36,18 @@ public class ClientController {
     }
 
     // Gérer la connexion
-    @PostMapping("/store/login")
+    @PostMapping("/login")
     public ModelAndView loginClient(String email, String password) {
         Client client = clientService.authenticateClient(email, password);
         ModelAndView modelAndView = new ModelAndView();
 
         if (client != null) {
             // Connexion réussie, redirection vers la page index
-            modelAndView.setViewName("store/index");
+            modelAndView.setViewName("/store/index");
             modelAndView.addObject("client", client);  // Ajouter le client à la vue
         } else {
             // Connexion échouée
-            modelAndView.setViewName("store/home");
+            modelAndView.setViewName("/store/home");
             modelAndView.addObject("error", "Identifiants incorrects !");
         }
 
@@ -55,13 +55,13 @@ public class ClientController {
     }
 
     // Page après connexion
-    @GetMapping("/store/index")
+    @GetMapping("/index")
     public ModelAndView indexPage() {
-        return new ModelAndView("store/index");
+        return new ModelAndView("/store/index");
     }
 
     // Déconnexion
-    @GetMapping("/store/logout")
+    @GetMapping("/logout")
     public ModelAndView logout() {
         // Redirige vers la page d'accueil après déconnexion
         return new ModelAndView("redirect:/store/home");
