@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home - Sign In / Sign Up</title>
+    <meta charset="UTF-8">
+    <title>Home - Store</title>
+    <style>
+        .inline {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenue, choisissez une option :</h1>
-    
-    <!-- Affichage des messages d'erreur ou de succès -->
-    <div th:if="${error != null}" th:text="${error}" style="color: red;"></div>
-    <div th:if="${message != null}" th:text="${message}" style="color: green;"></div>
 
-    <!-- Formulaire d'inscription -->
-    <h2>S'inscrire</h2>
-    <form th:action="@{/store/register}" method="POST">
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Mot de passe</label>
-            <input type="password" name="password" required>
-        </div>
-        <div>
-            <label for="firstName">Prénom</label>
-            <input type="text" name="prenom" required>
-        </div>
-        <div>
-            <label for="lastName">Nom</label>
-            <input type="text" name="nom" required>
-        </div>
-        <button type="submit">S'inscrire</button>
-    </form>
-    
-    <hr>
+<h1>Bienvenue sur notre Store</h1>
 
-    <!-- Formulaire de connexion -->
-    <h2>Se connecter</h2>
-    <form th:action="@{/store/login}" method="POST">
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Mot de passe</label>
-            <input type="password" name="password" required>
-        </div>
-        <button type="submit">Se connecter</button>
-    </form>
+<h2>Connexion</h2>
+<form th:action="@{/store/login}" method="post">
+    <div>
+        <label for="email" class="inline">Email:</label>
+        <input type="email" name="email" class="inline" required />
+    </div>
+    <div>
+        <label for="password" class="inline">Mot de passe:</label>
+        <input type="password" name="password" class="inline" required />
+    </div>
+    <br/>
+    <button type="submit">Se connecter</button>
+</form>
+
+<div th:if="${error}">
+    <p style="color:red;" th:text="${error}"></p>
+</div>
+
+<hr>
+
+<h2>Inscription</h2>
+<form th:action="@{/store/register}" method="post">
+    <div>
+        <label for="email" class="inline">Email:</label>
+        <input type="email" id="email" name="email" class="inline" required />
+    </div>
+    <div>
+        <label for="password" class="inline">Mot de passe:</label>
+        <input type="password" id="password" name="password" class="inline" required />
+    </div>
+    <div>
+        <label for="nom" class="inline">Nom:</label>
+        <input type="text" id="nom" name="nom" class="inline" required />
+    </div>
+    <div>
+        <label for="prenom" class="inline">Prénom:</label>
+        <input type="text" id="prenom" name="prenom" class="inline" required />
+    </div>
+    <br/>
+    <button type="submit">S'inscrire</button>
+</form>
+
+<div th:if="${message}">
+    <p style="color:green;" th:text="${message}"></p>
+</div>
+
 </body>
 </html>

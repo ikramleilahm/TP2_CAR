@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Index - Bienvenue</title>
+    <meta charset="UTF-8">
+    <title>Index - Store</title>
 </head>
 <body>
-    <h1>Bienvenue, <span th:text="${client.prenom}">Nom</span>!</h1>
-    <p>Vous êtes maintenant connecté(e) !</p>
-    <a th:href="@{/store/logout}">Déconnexion</a>
+
+<h1><p th:if="${client}" th:text="'Bonjour ' + ${client.nom} + ' ' + ${client.prenom}"></p></h1>
+
+<!-- Bouton de déconnexion -->
+<a th:href="@{/store/logout}">Se déconnecter</a>
+
 </body>
 </html>
