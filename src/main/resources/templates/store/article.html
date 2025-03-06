@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Articles de la commande</title>
+</head>
+<body>
+<h1>Détails de la commande</h1>
+<div>
+    <p>Client: <span th:text="${commande.client.nom}"></span> <span th:text="${commande.client.prenom}"></span></p>
+</div>
+
+<h3>Articles dans la commande :</h3>
+
+<!-- Vérification si la liste des articles n'est pas vide -->
+<table th:if="${commande.articles != null and #lists.size(commande.articles) > 0}">
+    <thead>
+    <tr>
+        <th>Libellé</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="article : ${commande.articles}">
+        <td th:text="${article.libelle}"></td>
+        <td th:text="${article.quantite}"></td>
+        <td th:text="${article.prix}"></td>
+        <td>
+            <form th:action="@{/store/delete}" method="post">
+                <input type="hidden" th:value="${commande.id_commande}" name="id_commande" />
+                <input type="hidden" th:value="${article.id_article}" name="articleId" />
+                <button type="submit">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Affichage du message si la liste des articles est vide -->
+<p th:if="${commande.articles == null or #lists.size(commande.articles) == 0}">
+    Aucun article dans cette commande.
+</p>
+
+<h3>Ajouter un nouvel article</h3>
+<form th:action="@{/store/article/create}" method="post">
+    <input type="hidden" th:value="${commande.id_commande}" name="id_commande" />
+
+    <label for="libelle">Libellé :</label>
+    <input type="text" id="libelle" name="libelle" required />
+
+    <label for="quantite">Quantité :</label>
+    <input type="number" id="quantite" name="quantite" required />
+
+    <label for="prix">Prix :</label>
+    <input type="number" step="0.01" id="prix" name="prix" required />
+
+    <button type="submit">Ajouter l'article</button>
+</form>
+
+<br>
+<a href="/store/index">Retour à la liste des commandes</a>
+</body>
+</html>
