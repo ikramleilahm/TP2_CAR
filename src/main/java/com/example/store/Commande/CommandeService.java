@@ -24,4 +24,8 @@ public class CommandeService implements CommandeItf {
         return repo.findByClient(client);
     }
 
+    public Commande findById(Long id_commande) {
+        return repo.findById(id_commande).orElse(null);
+    }
+
 }

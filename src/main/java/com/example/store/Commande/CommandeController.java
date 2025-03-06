@@ -34,7 +34,7 @@ public class CommandeController {
         return modelAndView;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/commande/create")
     public ModelAndView create(@RequestParam String nom_comm, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("redirect:/store/index");
         Client client = (Client) session.getAttribute("client");

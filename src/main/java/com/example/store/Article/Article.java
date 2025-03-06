@@ -1,7 +1,9 @@
 package com.example.store.Article;
+import com.example.store.Commande.Commande;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Article {
@@ -11,6 +13,9 @@ public class Article {
     private String libelle;
     private int quantite;
     private double prix;
+
+    @ManyToOne
+    private Commande commande;
 
     public Article() {
     }
