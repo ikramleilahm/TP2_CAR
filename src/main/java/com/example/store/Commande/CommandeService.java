@@ -28,4 +28,8 @@ public class CommandeService implements CommandeItf {
         return repo.findById(id_commande).orElse(null);
     }
 
+    public Commande save(Commande commande) {
+        return repo.save(commande);
+    }
+
 }

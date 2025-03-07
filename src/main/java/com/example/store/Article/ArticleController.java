@@ -40,19 +40,26 @@ public class ArticleController {
         Commande commande = commandeService.findById(id_commande);
         if (commande != null) {
             commande.getArticles().add(newArticle);
+            commandeService.save(commande);
         }
         return modelAndView;
     }
 
-    @PostMapping("/delete")
-    public ModelAndView delete(@RequestParam Long id_commande, @RequestParam Long articleId) {
+    @PostMapping("/article/delete")
+    public ModelAndView delete(@RequestParam Long id_commande, @RequestParam Long id_article) {
         ModelAndView modelAndView = new ModelAndView("redirect:/store/commande/" + id_commande);
-        articleService.delete(articleId);
+
         Commande commande = commandeService.findById(id_commande);
-        if (commande != null) {
-            commande.getArticles().removeIf(article -> article.getId_article().equals(articleId));
+        Article article = articleService.findById(id_article);
+
+        if (commande != null && article != null) {
+            commande.getArticles().removeIf(a -> a.getId_article().equals(id_article));
+            commandeService.save(commande);
+            articleService.delete(id_article);
         }
+
         return modelAndView;
     }
+
 
 }

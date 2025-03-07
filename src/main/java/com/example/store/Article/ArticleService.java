@@ -20,4 +20,8 @@ public class ArticleService implements ArticleItf{
     public void delete(Long id_article) {
         repo.deleteById(id_article);
     }
+
+    public Article findById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
 }

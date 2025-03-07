@@ -28,9 +28,9 @@
         <td th:text="${article.quantite}"></td>
         <td th:text="${article.prix}"></td>
         <td>
-            <form th:action="@{/store/delete}" method="post">
+            <form th:action="@{/store/article/delete}" method="post">
                 <input type="hidden" th:value="${commande.id_commande}" name="id_commande" />
-                <input type="hidden" th:value="${article.id_article}" name="articleId" />
+                <input type="hidden" th:value="${article.id_article}" name="id_article" />
                 <button type="submit">Supprimer</button>
             </form>
         </td>
