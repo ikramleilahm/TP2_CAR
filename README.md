@@ -12,6 +12,8 @@ L'application utilise le framework Spring Boot pour le développement backend, a
 - **Création de compte** : L'utilisateur peut créer un compte en fournissant un email, un mot de passe, un nom et un prénom.
 - **Connexion** : L'utilisateur peut se connecter à l'application en utilisant son email et son mot de passe.
 - **Déconnexion** : L'utilisateur peut se déconnecter de l'application à tout moment.
+![Capture d'écran 1](images/img1.png)
+
 
 ### Itération 2 : Gestion des commandes
 - **Création de commande** : L'utilisateur peut créer une nouvelle commande et l'associer à son compte.
