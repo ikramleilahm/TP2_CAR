@@ -23,15 +23,14 @@ L'application utilise le framework Spring Boot pour le développement backend, a
 ![Capture d'écran 2](images/img2.png)
 
 
-### Itération 3 : Gestion des articles
+### Itération 3 & Itération 4 : Gestion des articles et Impression des commandes
 - **Ajout d'articles** : L'utilisateur peut ajouter des articles à une commande existante.
 - **Suppression d'articles** : L'utilisateur peut supprimer des articles d'une commande.
+- **Affichage de la commande** : L'utilisateur peut afficher les articles d'une commande en vue de l'impression.
 
 ![Capture d'écran 3](images/img3.png)
 
 
-### Itération 4 : Impression des commandes
-- **Affichage de la commande** : L'utilisateur peut afficher les articles d'une commande en vue de l'impression.
 
 ### Itération 5 : Protection des routes de l’application
 - **Sécurisation des commandes** : Les routes des commandes sont protégées de manière à ce que chaque client ne puisse accéder qu'à ses propres commandes.
